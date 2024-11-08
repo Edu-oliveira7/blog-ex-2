@@ -31,6 +31,7 @@ class Mensagem(models.Model):
     email = models.EmailField()
     telefone = models.CharField(max_length=12)
     mensagem = models.TextField(max_length=1000)
+    cidade = models.CharField(max_length=100, blank=True)
     lida = models.BooleanField(default=False)
 
     def __str__(self):

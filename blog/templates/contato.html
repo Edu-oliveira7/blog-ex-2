@@ -9,7 +9,11 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="page-heading">
+                            {% if erro %}
+                            <h1>Errou, cidadao</h1>
+                            {% else %}
                             <h1>Contato</h1>
+                            {% endif %}
                             <span class="subheading">Dúvidas? Eu tenho as respostas</span>
                         </div>
                     </div>
@@ -27,31 +31,32 @@
                             <form action={% url 'contato' %} id="contactForm" method="POST">
                                 {% csrf_token %}
                                 <div class="form-floating">
-                                    <input class="form-control" id="name" name = 'nome'type="text" placeholder="Digite seu Nome..." />
+                                    <input class="form-control  {% if erro.nome %} is-invalid {% endif %}" id="name" name = 'nome'type="text" placeholder="Digite seu Nome..."/>
                                     <label for="name">Nome</label>
-                                    <div class="invalid-feedback">A name is required.</div>
+                                    <div class="invalid-feedback">O Nome é obrigatório.</div>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" id="email" name='email'type="email" placeholder="Digite seu Email..." />
+                                    <input class="form-control {% if erro.email %} is-invalid {% endif %}" id="email" name='email'type="email" placeholder="Digite seu Email..." />
                                     <label for="email">Endereço de Email</label>
-                                    <div class="invalid-feedback">An email is required.</div>
-                                    <div class="invalid-feedback">Email is not valid.</div>
+                                    <div class="invalid-feedback">o Email é obrigatório.</div>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" id="phone" name='telefone' type="tel" placeholder="Digite seu Telefone..." />
+                                    <input class="form-control {% if erro.telefone %} is-invalid {% endif %}" id="phone" name='telefone' type="tel" placeholder="Digite seu Telefone..." />
                                     <label for="phone">Numero de Telefone</label>
-                                    <div class="invalid-feedback">A phone number is required.</div>
                                 </div>
                                 <div class="form-floating">
-                                    <textarea class="form-control" id="message" name='mensagem' placeholder="Envie sua mensagem..." style="height: 12rem" ></textarea>
+                                    <input class="form-control" id="cidade" name='cidade'type="cidade" placeholder="Digite seu Cidade..." />
+                                    <label for="email">Cidade</label>
+                                    <div class="invalid-feedback">An city is required.</div>
+                                    <div class="invalid-feedback">city is not valid.</div>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control {% if erro.mensagem %} is-invalid {% endif %}" style="min-height=85px" id="message" name='mensagem' placeholder="Envie sua mensagem..." style="height: 12rem" ></textarea>
                                     <label for="message">Mensagem</label>
-                                    <div class="invalid-feedback">A message is required.</div>
+                                    <div class="invalid-feedback">A messagem é obrigatória.</div>
                                 </div>
                                 <br />
-                                <!-- Submit success message-->
-                                <!---->
-                                <!-- This is what your users will see when the form-->
-                                <!-- has successfully submitted-->
+                        
                                 <div class="d-none" id="submitSuccessMessage">
                                     <div class="text-center mb-3">
                                         <div class="fw-bolder">Form submission successful!</div>
@@ -60,10 +65,6 @@
                                         <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
                                     </div>
                                 </div>
-                                <!-- Submit error message-->
-                                <!---->
-                                <!-- This is what your users will see when there is-->
-                                <!-- an error submitting the form-->
                                 <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                                 <!-- Submit Button-->
                                 <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Enviar</button>
