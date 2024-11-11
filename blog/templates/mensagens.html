@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
 {%block content %}
+{% block header %}
+{% endblock header %}
+   <!-- Page Header-->
+   <header class="masthead" style="background-image: url('assets/img/contact-bg.jpg')">
+       <div class="container position-relative px-4 px-lg-5">
+           <div class="row gx-4 gx-lg-5 justify-content-center">
+               <div class="col-md-10 col-lg-8 col-xl-7">
+                   <div class="page-heading">
+                       <h1>Mensagem</h1>
+                       <span class="subheading">Dúvidas? Eu tenho as respostas</span>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </header>
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
@@ -8,13 +23,13 @@
                     {% for mensagem in mensagens %}
                     <div class="post-preview">
                         <a href="{% url 'index' %}">
-                            <h2 class="post-title">{{ mensagem.autor}}</h2>
+                            <h2 class="post-title">{{ mensagem.nome}}</h2>
                             <h3 class="post-subtitle">{{ mensagem.mensagem}}</h3>
                         </a>
                         <p class="post-meta">
                             Postado por
                             <a href="#!">{{ mensagem.email }}</a>
-                            em {{ post.data.criacao}} 18 de outubro as 10:09
+                            em {{ mensagem.cidade}} 
                         </p>
                     </div>
                     <!-- Divider-->
