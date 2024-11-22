@@ -10,7 +10,7 @@
                <div class="col-md-10 col-lg-8 col-xl-7">
                    <div class="page-heading">
                        <h1>Mensagem</h1>
-                       <span class="subheading">Dúvidas? Eu tenho as respostas</span>
+                       <span class="subheading">Mensagens enviadas pelos leitores</span>
                    </div>
                </div>
            </div>
@@ -29,8 +29,16 @@
                         <p class="post-meta">
                             Postado por
                             <a href="#!">{{ mensagem.email }}</a>
+                            {% if mensagem.cidade %}
                             em {{ mensagem.cidade}} 
+                            {% endif %}
                         </p>
+                        <a href="{% url 'deletar_mensagens' mensagem.id %}">
+                            <buttom class="btn btn-danger btn-sm">Deletar</buttom>
+                        </a>
+                        <a href="{% url 'editar_mensagens' mensagem.id %}">
+                            <buttom class="btn btn-warning btn-sm">Editar</buttom>
+                        </a>
                     </div>
                     <!-- Divider-->
                     <hr class="my-4" />

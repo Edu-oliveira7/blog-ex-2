@@ -9,8 +9,8 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="page-heading">
-                            <h1>Contato</h1>
-                            <span class="subheading">Dúvidas? Eu tenho as respostas</span>
+                            <h1> Editar Contato</h1>
+                            <span class="subheading">Dúvidas? Eu tenho as respostas. Mas escreva direito dessa vez</span>
                         </div>
                     </div>
                 </div>
@@ -28,21 +28,21 @@
                             <form action={% url 'contato' %} id="contactForm" method="POST">
                                 {% csrf_token %}
                                 <div class="form-floating">
-                                    <input class="form-control  {% if erro.nome %} is-invalid {% endif %}" id="name" name = 'nome'type="text" placeholder="Digite seu Nome..."/>
+                                    <input class="form-control  {% if erro.nome %} is-invalid {% endif %}" id="name" name = 'nome'type="text" placeholder="Digite seu Nome..." value= "{{ mensagem.nome}}"/>
                                     <label for="name">Nome</label>
                                     <div class="invalid-feedback">O Nome é obrigatório.</div>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control {% if erro.email %} is-invalid {% endif %}" id="email" name='email'type="email" placeholder="Digite seu Email..." />
+                                    <input class="form-control {% if erro.email %} is-invalid {% endif %}" id="email" name='email'type="email" placeholder="Digite seu Email..."  value= "{{ mensagem.email}}"/>
                                     <label for="email">Endereço de Email</label>
                                     <div class="invalid-feedback">o Email é obrigatório.</div>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control {% if erro.telefone %} is-invalid {% endif %}" id="phone" name='telefone' type="tel" placeholder="Digite seu Telefone..." />
+                                    <input class="form-control {% if erro.telefone %} is-invalid {% endif %}" id="phone" name='telefone' type="tel" placeholder="Digite seu Telefone..." value= "{{ mensagem.telefone}}" />
                                     <label for="phone">Telefone obrigatório</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" id="cidade" name='cidade'type="cidade" placeholder="Digite seu Cidade..." />
+                                    <input class="form-control" id="cidade" name='cidade'type="cidade" placeholder="Digite seu Cidade..." value= "{{ mensagem.cidade}}" />
                                     <label for="email">Cidade</label>
                                     <div class="invalid-feedback">An city is required.</div>
                                     <div class="invalid-feedback">city is not valid.</div>

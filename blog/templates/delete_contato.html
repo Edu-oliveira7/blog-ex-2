@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    {% block header %}
+     {% endblock header %}
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('assets/img/contact-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1> Apagar Contato</h1>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+       
+        <!-- Main Content-->
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>Deseja Apagar mesmo esta mensagem?</p>
+                        <div class="my-5">
+                            
+                            <form action={% url 'contato' %} id="contactForm" method="POST">
+                                {% csrf_token %}
+                                <h1> Tem Certeza? </h1>
+                                <!-- Submit Button-->
+                                <a href="{% url 'deletar_mensagens' mensagem.id %}">
+                                    <buttom class="btn btn-danger btn-sm" type='submit'>Sim</buttom>
+                                </a>
+                                <a href="{% url 'editar_mensagens' mensagem.id %}">
+                                    <buttom class="btn btn-warning btn-sm" type='submit'>Não</buttom>
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+{% endblock content %}
