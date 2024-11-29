@@ -27,42 +27,17 @@
                             
                             <form action={% url 'contato' %} id="contactForm" method="POST">
                                 {% csrf_token %}
-                                <div class="form-floating">
-                                    <input class="form-control  {% if erro.nome %} is-invalid {% endif %}" id="name" name = 'nome'type="text" placeholder="Digite seu Nome..."/>
-                                    <label for="name">Nome</label>
-                                    <div class="invalid-feedback">O Nome é obrigatório.</div>
-                                </div>
-                                <div class="form-floating">
-                                    <input class="form-control {% if erro.email %} is-invalid {% endif %}" id="email" name='email'type="email" placeholder="Digite seu Email..." />
-                                    <label for="email">Endereço de Email</label>
-                                    <div class="invalid-feedback">o Email é obrigatório.</div>
-                                </div>
-                                <div class="form-floating">
-                                    <input class="form-control {% if erro.telefone %} is-invalid {% endif %}" id="phone" name='telefone' type="tel" placeholder="Digite seu Telefone..." />
-                                    <label for="phone">Telefone obrigatório</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input class="form-control" id="cidade" name='cidade'type="cidade" placeholder="Digite seu Cidade..." />
-                                    <label for="email">Cidade</label>
-                                    <div class="invalid-feedback">An city is required.</div>
-                                    <div class="invalid-feedback">city is not valid.</div>
-                                </div>
-                                <div class="form-floating">
-                                    <textarea class="form-control {% if erro.mensagem %} is-invalid {% endif %}" style="min-height=85px" id="message" name='mensagem' placeholder="Envie sua mensagem..." style="height: 12rem" ></textarea>
-                                    <label for="message">Mensagem</label>
-                                    <div class="invalid-feedback">A messagem é obrigatória.</div>
-                                </div>
-                                <br />
-                        
-                                <div class="d-none" id="submitSuccessMessage">
-                                    <div class="text-center mb-3">
-                                        <div class="fw-bolder">Form submission successful!</div>
-                                        To activate this form, sign up at
-                                        <br />
-                                        <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                                {% for field in form %}
+                                    <div class="form-floating">
+                                        <input class="form-control  {% if erro.nome %} is-invalid {% endif %}" id="name" name = 'nome'type="text" placeholder="Digite seu Nome..."/>
+                                        {{ field.errors }}
+                                        {{ field }}
+                                        {{ field.label_tag}}
+                                        <div class="invalid-feedback">O Nome é obrigatório.</div>
                                     </div>
-                                </div>
-                                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                                {% endfor %}
+                                    
+                                
                                 <!-- Submit Button-->
                                 <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Enviar</button>
                             </form>

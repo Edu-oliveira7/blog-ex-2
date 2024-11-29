@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import Post, Blog, Mensagem
+from django.forms.models import model_to_dict
+from .forms import Mensagemform
+
 
 def index(request):
     context = {
@@ -28,26 +31,20 @@ def contato(request):
     }   
 
     if request.method == "POST":
-        context['erro'] = {}
-        if not request.POST['nome']:
-            context[ 'erro']['nome'] = True
-        if not request.POST['email']:
-            context[ 'erro']['email'] = True
-        if not request.POST['telefone']:
-            context[ 'erro']['telefone'] = True
-        if not request.POST['mensagem']:
-            context[ 'erro']['mensagem'] = True
-    
+        form = Mensagemform(request.POST)
+        if form.is_valid():
+            mensagem =Mensagem(
+                nome = form.cleaned_data["nome"],
+                email = form.cleaned_data["email"],
+                telefone = form.cleaned_data["telefone"],
+                mensagem = form.cleaned_data["mensagem"],
+                cidade = form.cleaned_data["cidade"]
+            )
+            mensagem.save()
 
-        mensagem = Mensagem(nome=request.POST['nome'],
-                            email=request.POST['email'],
-                            telefone=request.POST['telefone'],
-                            cidade=request.POST['cidade'],
-                            mensagem=request.POST['mensagem'])
-        mensagem.save()
-
-        return render(request, "contato.html", context)
+        return redirect('mensagem')
     else:
+        context["form"] = Mensagemform()
         return render(request, "contato.html", context)
     
 def mensagens (request):
@@ -59,33 +56,13 @@ def mensagens (request):
        
 
 def editar_mensagens (request, mensagem_id):
+    mensagem = get_object_or_404(Mensagem, pk=mensagem_id)
     context = {
         "blog": Blog.objects.first(),
-        "mensagem":Mensagem.objects.get(pk = mensagem_id)
+        "form": Mensagemform(initial=model_to_dict(mensagem))
     }
 
-    if request.method == "POST":
-        context['erro'] = {}
-        if not request.POST['nome']:
-            context[ 'erro']['nome'] = True
-        if not request.POST['email']:
-            context[ 'erro']['email'] = True
-        if not request.POST['telefone']:
-            context[ 'erro']['telefone'] = True
-        if not request.POST['mensagem']:
-            context[ 'erro']['mensagem'] = True
-
-            return render(request, "edit_contato.html", context)
-
-        mensagem = context["mensagem"]
-        mensagem.nome  =request.POST['nome'],
-        mensagem.email  =request.POST['email'],
-        mensagem.telefone = request.POST['telefone'],
-        mensagem.cidade =request.POST['cidade'],
-        mensagem.mensagem =request.POST['mensagem']
-        mensagem.save()
-
-    return render(request, "edit_contato.html", context)
+    return render(request, "contato.html", context)
 
 def deletar_mensagens(request, mensagem_id):
     context = {
